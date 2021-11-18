@@ -1,1 +1,1 @@
-export * from './zillow-api'
+export * from './get-property-info'

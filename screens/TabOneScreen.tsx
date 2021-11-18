@@ -3,7 +3,7 @@ import styled from 'styled-components/native'
 
 import EditScreenInfo from '../components/EditScreenInfo'
 import {RootTabScreenProps} from '../types'
-import {zillowApi} from '../api'
+import {getPropertyInfo} from '../api'
 
 type TabOneProps = RootTabScreenProps<'TabOne'>
 
@@ -11,7 +11,12 @@ export default function TabOneScreen(props: TabOneProps) {
   const {navigation} = props
 
   React.useEffect(() => {
-    zillowApi.getPropertyInfo()
+    async function fetchData() {
+      let res = await getPropertyInfo()
+      console.log(`res`, res)
+    }
+
+    fetchData()
   }, [])
 
   return (
