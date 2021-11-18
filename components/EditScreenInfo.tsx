@@ -1,49 +1,32 @@
 import * as WebBrowser from 'expo-web-browser'
 import React from 'react'
-import {StyleSheet, TouchableOpacity} from 'react-native'
-
-import Colors from '../constants/Colors'
-import {MonoText} from './StyledText'
-import {Text, View} from './Themed'
+import {TouchableOpacity, Text, View} from 'react-native'
+import styled from 'styled-components/native'
 
 export default function EditScreenInfo({path}: {path: string}) {
   return (
     <View>
-      <View style={styles.getStartedContainer}>
-        <Text
-          style={styles.getStartedText}
-          lightColor="rgba(0,0,0,0.8)"
-          darkColor="rgba(255,255,255,0.8)"
-        >
-          Open up the code for this screen:
-        </Text>
+      <GetStartedContainer>
+        <GetStartedText>Open up the code for this screen:</GetStartedText>
 
-        <View
-          style={[styles.codeHighlightContainer, styles.homeScreenFilename]}
-          darkColor="rgba(255,255,255,0.05)"
-          lightColor="rgba(0,0,0,0.05)"
-        >
-          <MonoText>{path}</MonoText>
-        </View>
+        <HomeScreenFilename>
+          <Text>{path}</Text>
+        </HomeScreenFilename>
 
-        <Text
-          style={styles.getStartedText}
-          lightColor="rgba(0,0,0,0.8)"
-          darkColor="rgba(255,255,255,0.8)"
-        >
+        <GetStartedText>
           Change any of the text, save the file, and your app will automatically
           update.
-        </Text>
-      </View>
+        </GetStartedText>
+      </GetStartedContainer>
 
-      <View style={styles.helpContainer}>
-        <TouchableOpacity onPress={handleHelpPress} style={styles.helpLink}>
-          <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
+      <HelpContainer>
+        <HelpLink onPress={handleHelpPress}>
+          <HelpLinkText>
             Tap here if your app doesn't automatically update after making
             changes
-          </Text>
-        </TouchableOpacity>
-      </View>
+          </HelpLinkText>
+        </HelpLink>
+      </HelpContainer>
     </View>
   )
 }
@@ -54,32 +37,34 @@ function handleHelpPress() {
   )
 }
 
-const styles = StyleSheet.create({
-  getStartedContainer: {
-    alignItems: 'center',
-    marginHorizontal: 50,
-  },
-  homeScreenFilename: {
-    marginVertical: 7,
-  },
-  codeHighlightContainer: {
-    borderRadius: 3,
-    paddingHorizontal: 4,
-  },
-  getStartedText: {
-    fontSize: 17,
-    lineHeight: 24,
-    textAlign: 'center',
-  },
-  helpContainer: {
-    marginTop: 15,
-    marginHorizontal: 20,
-    alignItems: 'center',
-  },
-  helpLink: {
-    paddingVertical: 15,
-  },
-  helpLinkText: {
-    textAlign: 'center',
-  },
-})
+const GetStartedContainer = styled.View`
+  display: flex;
+  align-items: center;
+  margin: 0 50px;
+`
+
+const HomeScreenFilename = styled.View`
+  margin: 0 7px;
+  border-radius: 3px;
+  padding: 0 4px;
+`
+
+const GetStartedText = styled.Text`
+  font-size: 17px;
+  line-height: 24px;
+  text-align: center;
+`
+
+const HelpContainer = styled.View`
+  margin: 0 20px;
+  margin-top: 15px;
+  align-items: center;
+`
+
+const HelpLink = styled(TouchableOpacity)`
+  padding: 15px 0;
+`
+
+const HelpLinkText = styled.Text`
+  text-align: center;
+`
