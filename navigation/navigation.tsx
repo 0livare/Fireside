@@ -15,10 +15,12 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack'
 import {ColorSchemeName, Pressable} from 'react-native'
 
 import {useColorPalette} from '../hooks'
-import ModalScreen from '../screens/ModalScreen'
-import NotFoundScreen from '../screens/NotFoundScreen'
-import TabOneScreen from '../screens/TabOneScreen'
-import TabTwoScreen from '../screens/TabTwoScreen'
+import {
+  ModalScreen,
+  NotFoundScreen,
+  TabOneScreen,
+  TabTwoScreen,
+} from '../screens'
 import {
   RootStackParamList,
   RootTabParamList,

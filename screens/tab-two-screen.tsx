@@ -4,7 +4,7 @@ import styled from 'styled-components/native'
 import EditScreenInfo from '../components/EditScreenInfo'
 import {Text, View} from '../components'
 
-export default function TabTwoScreen() {
+export function TabTwoScreen() {
   return (
     <Container>
       <Title>Tay is cool</Title>

@@ -8,7 +8,7 @@ import {useGetPropertyInfo} from '../hooks/queries/use-get-property-info'
 
 type TabOneProps = RootTabScreenProps<'TabOne'>
 
-export default function TabOneScreen(props: TabOneProps) {
+export function TabOneScreen(props: TabOneProps) {
   const {navigation} = props
 
   const [imageIndex, setImageIndex] = useState(0)
