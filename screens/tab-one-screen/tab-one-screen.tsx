@@ -2,28 +2,25 @@ import React, {useState} from 'react'
 import styled from 'styled-components/native'
 import {ActivityIndicator} from 'react-native'
 
-import {CustomButton, View} from '../components'
-import {RootTabScreenProps} from '../types'
-import {useGetPropertyInfo} from '../hooks/queries/use-get-property-info'
+import {CustomButton, View} from '../../components'
+import {RootTabScreenProps} from '../../types'
+import {useMatchAlgorithm} from '../../hooks'
+import {ImageStack} from './image-stack'
 
 type TabOneProps = RootTabScreenProps<'TabOne'>
 
 export function TabOneScreen(props: TabOneProps) {
   const {navigation} = props
 
-  const [imageIndex, setImageIndex] = useState(0)
-  const {data: propertyInfo, isLoading} = useGetPropertyInfo({
+  const {isLoading, nextImageUrls} = useMatchAlgorithm({
     city: 'Denver',
     state: 'CO',
   })
 
-  console.log(`propertyInfo`, propertyInfo)
-  const uri = propertyInfo?.[imageIndex].photos[0].photoUrl
-
   return (
     <Container>
-      {isLoading && <ActivityIndicator size="large" />}
-      {!isLoading && <MainImage source={{uri}} resizeMode="contain" />}
+      <ImageStack isLoading={isLoading} imageUrls={nextImageUrls} />
+
       <ButtonContainer>
         <DislikeButton title="dislike">Pass</DislikeButton>
         <LikeButton title="like">Hot</LikeButton>
@@ -36,11 +33,6 @@ const Container = styled(View)`
   align-items: center;
   justify-content: center;
   flex: 1;
-`
-
-const MainImage = styled.Image`
-  width: 80%;
-  height: 40%;
 `
 
 const ButtonContainer = styled(View)`
