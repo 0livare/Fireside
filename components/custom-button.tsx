@@ -2,7 +2,8 @@ import React from 'react'
 import {Pressable, PressableProps} from 'react-native'
 import styled from 'styled-components/native'
 
-import {Text, TextProps} from '../components'
+import {Text, TextProps} from '../components/themed-text'
+import {cs} from '../util'
 
 export type CustomButtonProps = PressableProps & {
   children: TextProps['children']
@@ -15,25 +16,28 @@ export type CustomButtonProps = PressableProps & {
 
 export function CustomButton(props: CustomButtonProps) {
   const {children, style, styles = {}, title, ...rest} = props
+  const childIsString = typeof children === 'string'
 
   return (
-    <StyledPressable
+    <Pressable
       {...rest}
-      style={[style, styles.root] as any}
-      accessibilityLabel={title || String(children)}
+      style={cs([
+        style,
+        styles.root,
+        {justifyContent: 'center', alignItems: 'center'},
+      ])}
+      accessibilityLabel={title || childIsString ? String(children) : ''}
     >
-      <Text
-        // React native does not support the cascade
-        // style={[{color: 'currentColor', fontWeight: 'inherit'}, styles.text]}
-        style={styles.text}
-      >
-        {children}
-      </Text>
-    </StyledPressable>
+      {childIsString && (
+        <Text
+          // React native does not support the cascade
+          // style={[{color: 'currentColor', fontWeight: 'inherit'}, styles.text]}
+          style={styles.text}
+        >
+          {children}
+        </Text>
+      )}
+      {!childIsString && children}
+    </Pressable>
   )
 }
-
-const StyledPressable = styled(Pressable)`
-  justify-content: center;
-  align-items: center;
-`

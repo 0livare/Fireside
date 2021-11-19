@@ -58,26 +58,3 @@ const ButtonContainer = styled(View)`
   margin-top: 100px;
   width: 100%;
 `
-
-function UnstyledVoteButton(props) {
-  return (
-    <CustomButton
-      {...props}
-      styles={{text: {color: 'white', fontWeight: 'bold', fontSize: 16}}}
-    />
-  )
-}
-
-const VoteButton = styled(UnstyledVoteButton)`
-  width: 100px;
-  height: 100px;
-  border-radius: 50px;
-`
-
-const LikeButton = styled(VoteButton)`
-  background-color: ${p => p.theme.green};
-`
-
-const DislikeButton = styled(VoteButton)`
-  background-color: ${p => p.theme.red};
-`

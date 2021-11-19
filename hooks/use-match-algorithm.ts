@@ -7,7 +7,7 @@ type UseMatchAlgorithmArgs = GetPropertyInfoArgs & {
   onMatch?(listing: Listing): void
 }
 
-const LIKE_COUNT_TO_TRIGGER_MATCH = 1
+const LIKE_COUNT_TO_TRIGGER_MATCH = 3
 
 export function useMatchAlgorithm(args: UseMatchAlgorithmArgs) {
   const {city, state, onMatch} = args
@@ -16,8 +16,10 @@ export function useMatchAlgorithm(args: UseMatchAlgorithmArgs) {
   const {data: propertyInfo, isLoading} = useGetPropertyInfo({city, state})
 
   const randomizedImages = useMemo(() => {
-    const individualPhotos = propertyInfo
-      ?.map(listing =>
+    if (!propertyInfo) return null
+
+    let individualPhotos = propertyInfo
+      .map(listing =>
         listing.photos.map(photo => ({
           photoUrl: photo.photoUrl,
           propertyId: listing.propertyId,
@@ -26,7 +28,9 @@ export function useMatchAlgorithm(args: UseMatchAlgorithmArgs) {
       )
       .flat(1)
 
+    individualPhotos = uniqueByKey(individualPhotos, 'photoUrl')
     individualPhotos?.sort(() => Math.random() - 0.5)
+
     return individualPhotos
   }, [propertyInfo])
 
@@ -68,4 +72,8 @@ export function useMatchAlgorithm(args: UseMatchAlgorithmArgs) {
     like,
     dislike,
   }
+}
+
+function uniqueByKey<T>(array: T[], key: keyof T) {
+  return [...new Map(array.map(item => [item[key], item])).values()]
 }

@@ -43,10 +43,7 @@ const Root = styled(View)`
 const MainImage = styled.Image<{offset: number}>`
   width: 100%;
   height: 100%;
-  position: 'absolute';
-  /* top: ${p => p.offset * 10}px;
-  left: ${p => p.offset * 10}px; */
-  /* border: 3px solid black; */
   background: white;
   border-radius: 16px;
+  background: transparent;
 `
