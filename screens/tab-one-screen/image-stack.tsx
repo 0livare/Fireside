@@ -2,30 +2,29 @@ import React from 'react'
 import styled from 'styled-components/native'
 import {ActivityIndicator, StyleSheet} from 'react-native'
 
-import {View, Paper} from '../../components'
+import {View} from '../../components'
 
 export type ImageStackProps = {
-  imageUrls: string[]
+  imageUrls: Array<string | undefined> | undefined
   isLoading?: boolean
 }
 
 export function ImageStack(props: ImageStackProps) {
   const {imageUrls, isLoading} = props
 
-  console.log(`imageUrls`, imageUrls)
-
   return (
     <Root>
-      {isLoading && <ActivityIndicator size="large" />}
-      {imageUrls?.slice(0, 2).map((imageUrl, index) => (
-        <MainImage
-          key={index}
-          source={{uri: imageUrl}}
-          resizeMode="cover"
-          style={{position: 'absolute'}}
-          offset={index}
-        />
-      ))}
+      <ActivityIndicator size="large" />
+      {!isLoading &&
+        imageUrls?.map((imageUrl, index) => (
+          <MainImage
+            key={imageUrl}
+            source={{uri: imageUrl}}
+            resizeMode="cover"
+            style={{position: 'absolute'}}
+            offset={index}
+          />
+        ))}
     </Root>
   )
 }

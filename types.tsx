@@ -35,3 +35,21 @@ export type RootTabScreenProps<Screen extends keyof RootTabParamList> =
     BottomTabScreenProps<RootTabParamList, Screen>,
     NativeStackScreenProps<RootStackParamList>
   >
+
+export type Listing = {
+  propertyId: string
+  propertyAddress: {
+    streetNumber
+    streetName: string
+    streetType: string
+    streetDirection: string
+    unitNumber: string
+    city: string
+    state: string
+    zipCode: string
+  }
+  photos: Array<{
+    photoUrl: string
+    thumbnailUrl: string
+  }>
+}

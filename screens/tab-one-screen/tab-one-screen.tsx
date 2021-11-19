@@ -2,8 +2,8 @@ import React, {useState} from 'react'
 import styled from 'styled-components/native'
 import {ActivityIndicator} from 'react-native'
 
-import {CustomButton, View} from '../../components'
-import {RootTabScreenProps} from '../../types'
+import {CustomButton, View, Text} from '../../components'
+import {Listing, RootTabScreenProps} from '../../types'
 import {useMatchAlgorithm} from '../../hooks'
 import {ImageStack} from './image-stack'
 
@@ -12,18 +12,30 @@ type TabOneProps = RootTabScreenProps<'TabOne'>
 export function TabOneScreen(props: TabOneProps) {
   const {navigation} = props
 
-  const {isLoading, nextImageUrls} = useMatchAlgorithm({
+  function onMatch(listing: Listing) {
+    console.log('Matched with!', listing)
+  }
+
+  const {isLoading, imageUrls, like, dislike} = useMatchAlgorithm({
     city: 'Denver',
     state: 'CO',
+    onMatch,
   })
+
+  const noResults = !isLoading && imageUrls?.length === 0
 
   return (
     <Container>
-      <ImageStack isLoading={isLoading} imageUrls={nextImageUrls} />
+      {noResults && <Text>No houses found for your search criteria</Text>}
+      {!noResults && <ImageStack isLoading={isLoading} imageUrls={imageUrls} />}
 
       <ButtonContainer>
-        <DislikeButton title="dislike">Pass</DislikeButton>
-        <LikeButton title="like">Hot</LikeButton>
+        <DislikeButton title="dislike" onPress={dislike}>
+          Pass
+        </DislikeButton>
+        <LikeButton title="like" onPress={like}>
+          Hot
+        </LikeButton>
       </ButtonContainer>
     </Container>
   )

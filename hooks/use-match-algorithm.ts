@@ -1,28 +1,71 @@
-import {useState} from 'react'
+import {useState, useMemo} from 'react'
+import {GetPropertyInfoArgs} from '../api'
+import {Listing} from '../types'
 import {useGetPropertyInfo} from './queries'
 
-type UseMatchAlgorithmArgs = {
-  city?: string
-  state?: string
+type UseMatchAlgorithmArgs = GetPropertyInfoArgs & {
+  onMatch?(listing: Listing): void
 }
 
-export function useMatchAlgorithm(args: UseMatchAlgorithmArgs) {
-  const {city, state} = args
+const LIKE_COUNT_TO_TRIGGER_MATCH = 3
 
-  const [imageIndex, setImageIndex] = useState(0)
+export function useMatchAlgorithm(args: UseMatchAlgorithmArgs) {
+  const {city, state, onMatch} = args
+
+  const [propertyIndex, setPropertyIndex] = useState(0)
   const {data: propertyInfo, isLoading} = useGetPropertyInfo({city, state})
 
-  console.log(`propertyInfo`, propertyInfo)
+  const randomizedImages = useMemo(() => {
+    const individualPhotos = propertyInfo
+      ?.map(listing =>
+        listing.photos.map(photo => ({
+          photoUrl: photo.photoUrl,
+          propertyId: listing.propertyId,
+          listing,
+        })),
+      )
+      .flat(1)
 
-  function getPhotoUrlForIndex(index: number) {
-    return propertyInfo?.[imageIndex].photos[index]?.photoUrl
+    individualPhotos?.sort(() => Math.random() - 0.5)
+    return individualPhotos
+  }, [propertyInfo])
+
+  const [likes, setLikes] = useState({})
+  const currentProperty = randomizedImages?.[propertyIndex]?.listing
+
+  function like() {
+    setLikes(likes => {
+      const likesCopy = {...likes}
+      const id = currentProperty!.propertyId
+
+      if (likesCopy[id]) {
+        likesCopy[id]++
+      } else {
+        likesCopy[id] = 1
+      }
+
+      if (likesCopy[id] === LIKE_COUNT_TO_TRIGGER_MATCH) {
+        onMatch && onMatch(currentProperty!)
+      }
+
+      return likesCopy
+    })
+
+    setPropertyIndex(index => index + 1)
+  }
+
+  function dislike() {
+    setPropertyIndex(index => index + 1)
   }
 
   return {
     isLoading,
-    nextImageUrls: [
-      getPhotoUrlForIndex(imageIndex),
-      getPhotoUrlForIndex(imageIndex + 1),
-    ],
+    currentPhotoUrl: randomizedImages?.[propertyIndex]?.photoUrl,
+    nextPhotoUrl: randomizedImages?.[propertyIndex + 1]?.photoUrl,
+    imageUrls: randomizedImages
+      ?.slice(propertyIndex, propertyIndex + 10)
+      .map(image => image.photoUrl!),
+    like,
+    dislike,
   }
 }
