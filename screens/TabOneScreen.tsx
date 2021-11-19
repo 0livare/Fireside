@@ -1,11 +1,9 @@
 import React, {useState} from 'react'
 import styled from 'styled-components/native'
-import {Image, ActivityIndicator, Pressable} from 'react-native'
+import {ActivityIndicator} from 'react-native'
 
-import {CustomButton} from '../components'
-import {colors} from '../constants'
+import {CustomButton, View} from '../components'
 import {RootTabScreenProps} from '../types'
-import {getPropertyInfo} from '../api'
 import {useGetPropertyInfo} from '../hooks/queries/use-get-property-info'
 
 type TabOneProps = RootTabScreenProps<'TabOne'>
@@ -34,7 +32,7 @@ export default function TabOneScreen(props: TabOneProps) {
   )
 }
 
-const Container = styled.View`
+const Container = styled(View)`
   align-items: center;
   justify-content: center;
   flex: 1;
@@ -45,26 +43,32 @@ const MainImage = styled.Image`
   height: 40%;
 `
 
-const ButtonContainer = styled.View`
+const ButtonContainer = styled(View)`
   flex-direction: row;
   justify-content: space-around;
   margin-top: 100px;
   width: 100%;
 `
 
-const VoteButton = styled(CustomButton)`
-  border-radius: 50%;
+function UnstyledVoteButton(props) {
+  return (
+    <CustomButton
+      {...props}
+      styles={{text: {color: 'white', fontWeight: 'bold', fontSize: 16}}}
+    />
+  )
+}
+
+const VoteButton = styled(UnstyledVoteButton)`
   width: 100px;
   height: 100px;
-  color: white;
-  font-weight: bold;
-  font-size: 16px;
+  border-radius: 50px;
 `
 
 const LikeButton = styled(VoteButton)`
-  background-color: ${colors.green};
+  background-color: ${p => p.theme.green};
 `
 
 const DislikeButton = styled(VoteButton)`
-  background-color: ${colors.red};
+  background-color: ${p => p.theme.red};
 `

@@ -1,6 +1,8 @@
 import React from 'react'
-import {Pressable, PressableProps, Text, TextProps} from 'react-native'
+import {Pressable, PressableProps} from 'react-native'
 import styled from 'styled-components/native'
+
+import {Text, TextProps} from '../components'
 
 export type CustomButtonProps = PressableProps & {
   children: TextProps['children']
@@ -21,7 +23,9 @@ export function CustomButton(props: CustomButtonProps) {
       accessibilityLabel={title || String(children)}
     >
       <Text
-        style={[{color: 'currentColor', fontWeight: 'inherit'}, styles.text]}
+        // React native does not support the cascade
+        // style={[{color: 'currentColor', fontWeight: 'inherit'}, styles.text]}
+        style={styles.text}
       >
         {children}
       </Text>

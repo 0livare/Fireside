@@ -1,7 +1,9 @@
 import * as WebBrowser from 'expo-web-browser'
 import React from 'react'
-import {TouchableOpacity, Text, View} from 'react-native'
+import {TouchableOpacity} from 'react-native'
 import styled from 'styled-components/native'
+
+import {Text, View} from '../components'
 
 export default function EditScreenInfo({path}: {path: string}) {
   return (
@@ -37,13 +39,13 @@ function handleHelpPress() {
   )
 }
 
-const GetStartedContainer = styled.View`
+const GetStartedContainer = styled(View)`
   display: flex;
   align-items: center;
   margin: 0 50px;
 `
 
-const HomeScreenFilename = styled.View`
+const HomeScreenFilename = styled(View)`
   margin: 0 7px;
   border-radius: 3px;
   padding: 0 4px;
@@ -55,7 +57,7 @@ const GetStartedText = styled.Text`
   text-align: center;
 `
 
-const HelpContainer = styled.View`
+const HelpContainer = styled(View)`
   margin: 0 20px;
   margin-top: 15px;
   align-items: center;

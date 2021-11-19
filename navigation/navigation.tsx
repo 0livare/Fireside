@@ -14,8 +14,7 @@ import {
 import {createNativeStackNavigator} from '@react-navigation/native-stack'
 import {ColorSchemeName, Pressable} from 'react-native'
 
-import {colors} from '../constants'
-import useColorScheme from '../hooks/useColorScheme'
+import {useColorPalette} from '../hooks'
 import ModalScreen from '../screens/ModalScreen'
 import NotFoundScreen from '../screens/NotFoundScreen'
 import TabOneScreen from '../screens/TabOneScreen'
@@ -25,7 +24,7 @@ import {
   RootTabParamList,
   RootTabScreenProps,
 } from '../types'
-import LinkingConfiguration from './LinkingConfiguration'
+import {linkingConfiguration} from './linking-configuration'
 
 export default function Navigation({
   colorScheme,
@@ -34,7 +33,7 @@ export default function Navigation({
 }) {
   return (
     <NavigationContainer
-      linking={LinkingConfiguration}
+      linking={linkingConfiguration}
       theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
     >
       <RootNavigator />
@@ -75,7 +74,7 @@ function RootNavigator() {
 const BottomTab = createBottomTabNavigator<RootTabParamList>()
 
 function BottomTabNavigator() {
-  const colorScheme = useColorScheme()
+  const colors = useColorPalette()
 
   return (
     <BottomTab.Navigator
