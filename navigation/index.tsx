@@ -3,6 +3,7 @@
  * https://reactnavigation.org/docs/getting-started
  *
  */
+import * as React from 'react'
 import {FontAwesome} from '@expo/vector-icons'
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import {
@@ -11,10 +12,9 @@ import {
   DarkTheme,
 } from '@react-navigation/native'
 import {createNativeStackNavigator} from '@react-navigation/native-stack'
-import * as React from 'react'
 import {ColorSchemeName, Pressable} from 'react-native'
 
-import Colors from '../constants/Colors'
+import {colors} from '../constants'
 import useColorScheme from '../hooks/useColorScheme'
 import ModalScreen from '../screens/ModalScreen'
 import NotFoundScreen from '../screens/NotFoundScreen'
@@ -81,7 +81,7 @@ function BottomTabNavigator() {
     <BottomTab.Navigator
       initialRouteName="TabOne"
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme].tint,
+        tabBarActiveTintColor: colors.tint,
       }}
     >
       <BottomTab.Screen
@@ -100,7 +100,7 @@ function BottomTabNavigator() {
               <FontAwesome
                 name="info-circle"
                 size={25}
-                color={Colors[colorScheme].text}
+                color={colors.text}
                 style={{marginRight: 15}}
               />
             </Pressable>

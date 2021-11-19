@@ -26,6 +26,10 @@ export default function TabOneScreen(props: TabOneProps) {
     <Container>
       {isLoading && <ActivityIndicator size="large" />}
       {!isLoading && <MainImage source={{uri}} resizeMode="contain" />}
+      <ButtonContainer>
+        <DislikeButton title="dislike">Pass</DislikeButton>
+        <LikeButton title="like">Hot</LikeButton>
+      </ButtonContainer>
     </Container>
   )
 }
@@ -36,13 +40,31 @@ const Container = styled.View`
   flex: 1;
 `
 
-const Title = styled.Text`
-  font-size: 20px;
-  font-weight: bold;
+const MainImage = styled.Image`
+  width: 80%;
+  height: 40%;
 `
 
-const Separator = styled.View`
-  margin: 30px 0;
-  height: 1px;
-  width: 80%;
+const ButtonContainer = styled.View`
+  flex-direction: row;
+  justify-content: space-around;
+  margin-top: 100px;
+  width: 100%;
+`
+
+const VoteButton = styled(CustomButton)`
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+`
+
+const LikeButton = styled(VoteButton)`
+  background-color: ${colors.green};
+`
+
+const DislikeButton = styled(VoteButton)`
+  background-color: ${colors.red};
 `

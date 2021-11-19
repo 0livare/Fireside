@@ -1,23 +1,48 @@
 import {GraphQLClient, gql} from 'graphql-request'
 
-export async function getPropertyInfo() {
+type Listing = {
+  propertyAddress: {
+    streetNumber
+    streetName: string
+    streetType: string
+    streetDirection: string
+    unitNumber: string
+    city: string
+    state: string
+    zipCode: string
+  }
+  photos: {
+    photoUrl: string
+    thumbnailUrl: string
+  }
+}
+
+export type GetPropertyInfoArgs = {
+  city: string
+  state: string
+  resultSize?: number
+}
+
+export async function getPropertyInfo(
+  args: GetPropertyInfoArgs,
+): Promise<Listing[]> {
+  const {city, state, resultSize = 100} = args
+
   const graphqlClient = new GraphQLClient(
     'https://integ-mls-service.skyslope.com/',
   )
 
   try {
     const res = await graphqlClient.request(getListingByAddressComponentQuery, {
-      searchString: '1',
-      city: 'sacramento',
-      state: 'Ca',
-      daysToSearch: 1825,
-      searchType: 'MONGODB',
-      resultSize: 100,
+      city,
+      state,
+      resultSize,
     })
 
     return res.getListingsByAddressComponents
   } catch (e) {
     console.error(e)
+    return []
   }
 }
 
