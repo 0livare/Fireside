@@ -32,8 +32,12 @@ export function VoteTabScreen(props: TabOneProps) {
 
   return (
     <Container>
-      {noResults && <Text>No houses found for your search criteria</Text>}
-      {!noResults && <ImageStack isLoading={isLoading} imageUrls={imageUrls} />}
+      <ContentArea>
+        {noResults && <Text>No houses found for your search criteria</Text>}
+        {!noResults && (
+          <ImageStack isLoading={isLoading} imageUrls={imageUrls} />
+        )}
+      </ContentArea>
 
       <ButtonContainer>
         <DislikeButton title="dislike" onPress={dislike}>
@@ -49,13 +53,20 @@ export function VoteTabScreen(props: TabOneProps) {
 
 const Container = styled(View)`
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   flex: 1;
+`
+
+const ContentArea = styled(View)`
+  width: 100%;
+  height: 80%;
+  justify-content: center;
+  align-items: center;
 `
 
 const ButtonContainer = styled(View)`
   flex-direction: row;
   justify-content: space-around;
-  margin-top: 100px;
+  margin-top: 30px;
   width: 100%;
 `

@@ -36,14 +36,14 @@ const styles = StyleSheet.create({
 })
 
 const Root = styled(View)`
-  width: 80%;
-  height: 40%;
+  width: 100%;
+  height: 100%;
 `
 
 const MainImage = styled.Image<{offset: number}>`
   width: 100%;
   height: 100%;
   background: white;
-  border-radius: 16px;
+  /* border-radius: 16px; */
   background: transparent;
 `
