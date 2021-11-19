@@ -1,6 +1,6 @@
-import React, {useState} from 'react'
+import React from 'react'
 import styled from 'styled-components/native'
-import {ActivityIndicator} from 'react-native'
+import Toast from 'react-native-toast-message'
 
 import {CustomButton, View, Text} from '../../components'
 import {Listing, RootTabScreenProps} from '../../types'
@@ -13,7 +13,12 @@ export function TabOneScreen(props: TabOneProps) {
   const {navigation} = props
 
   function onMatch(listing: Listing) {
-    console.log('Matched with!', listing)
+    console.info('Matched with!', listing)
+    Toast.show({
+      type: 'success',
+      text1: 'Oooo yea, you got a new match! 🔥',
+      text2: 'You can go check it out on the matches page whenever',
+    })
   }
 
   const {isLoading, imageUrls, like, dislike} = useMatchAlgorithm({

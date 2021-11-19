@@ -7,7 +7,7 @@ type UseMatchAlgorithmArgs = GetPropertyInfoArgs & {
   onMatch?(listing: Listing): void
 }
 
-const LIKE_COUNT_TO_TRIGGER_MATCH = 3
+const LIKE_COUNT_TO_TRIGGER_MATCH = 1
 
 export function useMatchAlgorithm(args: UseMatchAlgorithmArgs) {
   const {city, state, onMatch} = args

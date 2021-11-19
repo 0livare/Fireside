@@ -40,6 +40,8 @@ const getListingByAddressComponentQuery = gql`
       city: $city
       state: $state
       resultSize: $resultSize
+      searchType: "MONGODB"
+      noResultsOnEmptySearchString: false
     ) {
       propertyId
       propertyAddress {
