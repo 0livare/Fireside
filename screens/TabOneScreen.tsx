@@ -1,29 +1,31 @@
-import * as React from 'react'
+import React, {useState} from 'react'
 import styled from 'styled-components/native'
+import {Image, ActivityIndicator, Pressable} from 'react-native'
 
-import EditScreenInfo from '../components/EditScreenInfo'
+import {CustomButton} from '../components'
+import {colors} from '../constants'
 import {RootTabScreenProps} from '../types'
 import {getPropertyInfo} from '../api'
+import {useGetPropertyInfo} from '../hooks/queries/use-get-property-info'
 
 type TabOneProps = RootTabScreenProps<'TabOne'>
 
 export default function TabOneScreen(props: TabOneProps) {
   const {navigation} = props
 
-  React.useEffect(() => {
-    async function fetchData() {
-      let res = await getPropertyInfo()
-      console.log(`res`, res)
-    }
+  const [imageIndex, setImageIndex] = useState(0)
+  const {data: propertyInfo, isLoading} = useGetPropertyInfo({
+    city: 'Denver',
+    state: 'CO',
+  })
 
-    fetchData()
-  }, [])
+  console.log(`propertyInfo`, propertyInfo)
+  const uri = propertyInfo?.[imageIndex].photos[0].photoUrl
 
   return (
     <Container>
-      <Title>Zach is cool</Title>
-      <Separator />
-      <EditScreenInfo path="/screens/TabOneScreen.tsx" />
+      {isLoading && <ActivityIndicator size="large" />}
+      {!isLoading && <MainImage source={{uri}} resizeMode="contain" />}
     </Container>
   )
 }
