@@ -6,10 +6,11 @@ import {CustomButton, View, Text} from '../../components'
 import {Listing, RootTabScreenProps} from '../../types'
 import {useMatchAlgorithm} from '../../hooks'
 import {ImageStack} from './image-stack'
+import {LikeButton, DislikeButton} from './vote-button'
 
-type TabOneProps = RootTabScreenProps<'TabOne'>
+type TabOneProps = RootTabScreenProps<'Vote'>
 
-export function TabOneScreen(props: TabOneProps) {
+export function VoteTabScreen(props: TabOneProps) {
   const {navigation} = props
 
   function onMatch(listing: Listing) {

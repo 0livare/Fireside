@@ -18,8 +18,8 @@ import {useColorPalette} from '../hooks'
 import {
   ModalScreen,
   NotFoundScreen,
-  TabOneScreen,
-  TabTwoScreen,
+  VoteTabScreen,
+  MatchesTabScreen,
 } from '../screens'
 import {
   RootStackParamList,
@@ -80,39 +80,24 @@ function BottomTabNavigator() {
 
   return (
     <BottomTab.Navigator
-      initialRouteName="TabOne"
+      initialRouteName="Vote"
       screenOptions={{
         tabBarActiveTintColor: colors.tint,
       }}
     >
       <BottomTab.Screen
-        name="TabOne"
-        component={TabOneScreen}
-        options={({navigation}: RootTabScreenProps<'TabOne'>) => ({
-          title: 'Tab One',
+        name="Vote"
+        component={VoteTabScreen}
+        options={({navigation}: RootTabScreenProps<'Vote'>) => ({
+          title: 'Vote',
           tabBarIcon: ({color}) => <TabBarIcon name="code" color={color} />,
-          headerRight: () => (
-            <Pressable
-              onPress={() => navigation.navigate('Modal')}
-              style={({pressed}) => ({
-                opacity: pressed ? 0.5 : 1,
-              })}
-            >
-              <FontAwesome
-                name="info-circle"
-                size={25}
-                color={colors.text}
-                style={{marginRight: 15}}
-              />
-            </Pressable>
-          ),
         })}
       />
       <BottomTab.Screen
-        name="TabTwo"
-        component={TabTwoScreen}
+        name="Matches"
+        component={MatchesTabScreen}
         options={{
-          title: 'Tab Two',
+          title: 'Matches',
           tabBarIcon: ({color}) => <TabBarIcon name="code" color={color} />,
         }}
       />
