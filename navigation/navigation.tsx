@@ -12,7 +12,7 @@ import {
   DarkTheme,
 } from '@react-navigation/native'
 import {createNativeStackNavigator} from '@react-navigation/native-stack'
-import {ColorSchemeName, Pressable} from 'react-native'
+import {ColorSchemeName, Image, Pressable} from 'react-native'
 
 import {useColorPalette} from '../hooks'
 import {
@@ -91,6 +91,7 @@ function BottomTabNavigator() {
         options={({navigation}: RootTabScreenProps<'Vote'>) => ({
           title: 'Vote',
           tabBarIcon: ({color}) => <TabBarIcon name="code" color={color} />,
+          header: () => null,
         })}
       />
       <BottomTab.Screen

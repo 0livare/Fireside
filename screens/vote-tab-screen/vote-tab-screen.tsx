@@ -7,6 +7,7 @@ import {Listing, RootTabScreenProps} from '../../types'
 import {useMatchAlgorithm} from '../../hooks'
 import {ImageStack} from './image-stack'
 import {LikeButton, DislikeButton} from './vote-button'
+import {Image, StyleSheet} from 'react-native'
 
 type TabOneProps = RootTabScreenProps<'Vote'>
 
@@ -37,6 +38,12 @@ export function VoteTabScreen(props: TabOneProps) {
         {!noResults && (
           <ImageStack isLoading={isLoading} imageUrls={imageUrls} />
         )}
+
+        <Image
+          style={styles.logo}
+          source={require('../../assets/images/logo.png')}
+          resizeMode="contain"
+        />
       </ContentArea>
 
       <ButtonContainer>
@@ -50,6 +57,15 @@ export function VoteTabScreen(props: TabOneProps) {
     </Container>
   )
 }
+
+const styles = StyleSheet.create({
+  logo: {
+    position: 'absolute',
+    top: 16,
+    width: 200,
+    height: 100,
+  },
+})
 
 const Container = styled(View)`
   align-items: center;

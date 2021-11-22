@@ -1,15 +1,12 @@
 import * as React from 'react'
 import styled from 'styled-components/native'
 
-import EditScreenInfo from '../components/EditScreenInfo'
 import {Text, View} from '../components'
 
 export function MatchesTabScreen() {
   return (
     <Container>
-      <Title>Tay is cool</Title>
-      <Separator />
-      <EditScreenInfo path="/screens/TabTwoScreen.tsx" />
+      <Title>(Please pretend there are a list of your matches here)</Title>
     </Container>
   )
 }
@@ -24,6 +21,7 @@ const Container = styled(View)`
 const Title = styled(Text)`
   font-size: 20px;
   font-weight: 700;
+  padding: 32px;
 `
 
 const Separator = styled(View)`
